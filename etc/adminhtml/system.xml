@@ -12,131 +12,175 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="payment">
-            <group id="pmnts_gateway" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="100" translate="label" type="text">
+            <group id="pmnts_gateway" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="100" translate="label">
                 <label>PMNTS</label>
-                <field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
-                    <label>Enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
-                    <label>Title</label>
-                </field>
-                <field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="25" translate="label" type="text">
-                    <label>Display Order</label>
-                    <frontend_class>validate-number</frontend_class>
-                </field>
-                <field id="username" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
-                    <label>Username</label>
-                    <validate>required-entry</validate>
-                    <depends>
-                      <field id="active">1</field>
-                    </depends>
-                </field>
-                <field id="token" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="obscure">
-                    <label>Token</label>
-                    <validate>required-entry</validate>
-                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
-                    <depends>
-                      <field id="active">1</field>
-                    </depends>
-                </field>
-                <field id="sandbox_mode" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="60" translate="label" type="select">
-                    <label>Sandbox Mode</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable or disable Sandbox (Test) mode.</comment>
-                </field>
-                <field id="order_status" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="70" translate="label" type="select">
-                    <label>New Order Status</label>
-                    <source_model>PMNTS\Gateway\Model\Config\Source\Order\Status\Pendingpayment</source_model>
-                </field>
-                <field id="reference_prefix" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="75" translate="label" type="text">
-                  <label>Prefix for Reference</label>
-                </field>
-                <field id="auth_type" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="select">
-                    <label>Payment Action</label>
-                    <source_model>PMNTS\Gateway\Model\Source\Action</source_model>
-                </field>
-                <field id="shared_secret" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="91" translate="label" type="text">
-                    <label>Shared Secret</label>
-                    <validate>required-entry</validate>
-                </field>
-                <field id="iframe_css" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="92" translate="label" type="text">
-                    <label>IFRAME Stylesheet URL</label>
-                    <comment>URL must start with https:// and return valid CSS.</comment>
-                </field>
-                <field id="cctypes" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="100" translate="label" type="multiselect">
-                    <label>Credit Card Types</label>
-                    <source_model>PMNTS\Gateway\Model\Source\Cctype</source_model>
-                </field>
-                <field id="currencies" translate="label" type="multiselect" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Accepted Currencies</label>
-                    <source_model>Magento\Config\Model\Config\Source\Locale\Currency</source_model>
-                </field>
-                <field id="allowspecific" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="110" translate="label" type="allowspecific">
-                    <label>Payment from Applicable Countries</label>
-                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
-                </field>
-                <field id="specificcountry" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="111" translate="label" type="multiselect">
-                    <label>Payment from Specific Countries</label>
-                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
-                    <can_be_empty>1</can_be_empty>
-                    <depends>
-                        <field id="allowspecific">1</field>
-                    </depends>
-                </field>
-                <field id="customer_save_credit_card" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="120" translate="label" type="select">
-                    <label>Customer can save Credit Card</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Allow customers credit card tokens to be saved for future use.</comment>
-                    <config_path>payment/pmnts_gateway_vault/active</config_path>
-                </field>
-                <field id="fraud_detection_enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="130" translate="label" type="select">
-                    <label>Fraud Detection</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Fraud Detection must be enabled with the gateway prior to configuring these settings.</comment>
-                </field>
-                <field id="fraud_ship_lowcost" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="131" translate="label" type="multiselect">
-                    <label>Fraud Shipping Map - Low Cost</label>
-                    <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
-                    <depends>
-                        <field id="fraud_detection_enabled">1</field>
-                    </depends>
-                </field>
-                <field id="fraud_ship_sameday" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="132" translate="label" type="multiselect">
-                    <label>Fraud Shipping Map - Same Day</label>
-                    <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
-                    <depends>
-                        <field id="fraud_detection_enabled">1</field>
-                    </depends>
-                </field>
-                <field id="fraud_ship_overnight" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="133" translate="label" type="multiselect">
-                    <label>Fraud Shipping Map - Overnight</label>
-                    <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
-                    <depends>
-                        <field id="fraud_detection_enabled">1</field>
-                    </depends>
-                </field>
-                <field id="fraud_ship_express" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="134" translate="label" type="multiselect">
-                    <label>Fraud Shipping Map - Express</label>
-                    <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
-                    <depends>
-                        <field id="fraud_detection_enabled">1</field>
-                    </depends>
-                </field>
-                <field id="fraud_ship_international" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="135" translate="label" type="multiselect">
-                    <label>Fraud Shipping Map - International</label>
-                    <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
-                    <depends>
-                        <field id="fraud_detection_enabled">1</field>
-                    </depends>
-                </field>
-                <field id="fraud_ship_pickup" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="136" translate="label" type="multiselect">
-                    <label>Fraud Shipping Map - Pickup</label>
-                    <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
-                    <depends>
-                        <field id="fraud_detection_enabled">1</field>
-                    </depends>
-                </field>
+                <group id="general" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>General Settings</label>
+                    <field id="username" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
+                        <label>Username</label>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/username</config_path>
+                    </field>
+                    <field id="token" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="obscure">
+                        <label>Token</label>
+                        <validate>required-entry</validate>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/token</config_path>
+                    </field>
+                    <field id="reference_prefix" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="75" translate="label" type="text">
+                        <label>Prefix for Reference</label>
+                        <config_path>payment/pmnts_gateway/reference_prefix</config_path>
+                    </field>
+                    <field id="auth_type" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="80" translate="label" type="select">
+                        <label>Payment Action</label>
+                        <source_model>PMNTS\Gateway\Model\Source\Action</source_model>
+                        <config_path>payment/pmnts_gateway/auth_type</config_path>
+                    </field>
+                    <field id="shared_secret" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="91" translate="label" type="text">
+                        <label>Shared Secret</label>
+                        <validate>required-entry</validate>
+                        <config_path>payment/pmnts_gateway/shared_secret</config_path>
+                    </field>
+                    <field id="order_status" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="70" translate="label" type="select">
+                        <label>New Order Status</label>
+                        <source_model>PMNTS\Gateway\Model\Config\Source\Order\Status\Pendingpayment</source_model>
+                        <config_path>payment/pmnts_gateway/order_status</config_path>
+                    </field>
+
+                    <field id="fraud_detection_enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="130" translate="label" type="select">
+                        <label>Fraud Detection</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Fraud Detection must be enabled with the gateway prior to configuring these settings.</comment>
+                        <config_path>payment/pmnts_gateway/fraud_detection_enabled</config_path>
+                    </field>
+                    <field id="fraud_ship_lowcost" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="131" translate="label" type="multiselect">
+                        <label>Fraud Shipping Map - Low Cost</label>
+                        <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
+                        <depends>
+                            <field id="fraud_detection_enabled">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/fraud_ship_lowcost</config_path>
+                    </field>
+                    <field id="fraud_ship_sameday" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="132" translate="label" type="multiselect">
+                        <label>Fraud Shipping Map - Same Day</label>
+                        <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
+                        <depends>
+                            <field id="fraud_detection_enabled">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/fraud_ship_sameday</config_path>
+                    </field>
+                    <field id="fraud_ship_overnight" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="133" translate="label" type="multiselect">
+                        <label>Fraud Shipping Map - Overnight</label>
+                        <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
+                        <depends>
+                            <field id="fraud_detection_enabled">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/fraud_ship_overnight</config_path>
+                    </field>
+                    <field id="fraud_ship_express" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="134" translate="label" type="multiselect">
+                        <label>Fraud Shipping Map - Express</label>
+                        <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
+                        <depends>
+                            <field id="fraud_detection_enabled">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/fraud_ship_express</config_path>
+                    </field>
+                    <field id="fraud_ship_international" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="135" translate="label" type="multiselect">
+                        <label>Fraud Shipping Map - International</label>
+                        <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
+                        <depends>
+                            <field id="fraud_detection_enabled">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/fraud_ship_international</config_path>
+                    </field>
+                    <field id="fraud_ship_pickup" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="136" translate="label" type="multiselect">
+                        <label>Fraud Shipping Map - Pickup</label>
+                        <source_model>PMNTS\Gateway\Model\Source\EnabledMethods</source_model>
+                        <depends>
+                            <field id="fraud_detection_enabled">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/fraud_ship_pickup</config_path>
+                    </field>
+                </group>
+
+                <group id="credit_card" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Credit Card</label>
+                    <field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/pmnts_gateway/active</config_path>
+                    </field>
+                    <field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+                        <label>Title</label>
+                        <config_path>payment/pmnts_gateway/title</config_path>
+                    </field>
+                    <field id="sort_order" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="25" translate="label" type="text">
+                        <label>Display Order</label>
+                        <frontend_class>validate-number</frontend_class>
+                        <config_path>payment/pmnts_gateway/sort_order</config_path>
+                    </field>
+                    <field id="sandbox_mode" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="60" translate="label" type="select">
+                        <label>Sandbox Mode</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Enable or disable Sandbox (Test) mode.</comment>
+                        <config_path>payment/pmnts_gateway/sandbox_mode</config_path>
+                    </field>
+                    <field id="iframe_css" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="92" translate="label" type="text">
+                        <label>IFRAME Stylesheet URL</label>
+                        <comment>URL must start with https:// and return valid CSS.</comment>
+                        <config_path>payment/pmnts_gateway/iframe_css</config_path>
+                    </field>
+                    <field id="cctypes" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="100" translate="label" type="multiselect">
+                        <label>Credit Card Types</label>
+                        <source_model>PMNTS\Gateway\Model\Source\Cctype</source_model>
+                        <config_path>payment/pmnts_gateway/cctypes</config_path>
+                    </field>
+                    <field id="currencies" translate="label" type="multiselect" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Accepted Currencies</label>
+                        <source_model>Magento\Config\Model\Config\Source\Locale\Currency</source_model>
+                        <config_path>payment/pmnts_gateway/currencies</config_path>
+                    </field>
+                    <field id="allowspecific" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="110" translate="label" type="allowspecific">
+                        <label>Payment from Applicable Countries</label>
+                        <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                        <config_path>payment/pmnts_gateway/allowspecific</config_path>
+                    </field>
+                    <field id="specificcountry" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="111" translate="label" type="multiselect">
+                        <label>Payment from Specific Countries</label>
+                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="allowspecific">1</field>
+                        </depends>
+                        <config_path>payment/pmnts_gateway/specificcountry</config_path>
+                    </field>
+                    <field id="customer_save_credit_card" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="120" translate="label" type="select">
+                        <label>Customer can save Credit Card</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Allow customers credit card tokens to be saved for future use.</comment>
+                        <config_path>payment/pmnts_gateway_vault/active</config_path>
+                    </field>
+                </group>
+                <group id="applepay" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30" translate="label">
+                    <label>Apple Pay</label>
+                    <field id="enabled" showInDefault="1" showInWebsite="1" type="select">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="googlepay" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40" translate="label">
+                    <label>Google Pay</label>
+                    <field id="enabled" showInDefault="1" showInWebsite="1" type="select">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
             </group>
         </section>
     </system>
