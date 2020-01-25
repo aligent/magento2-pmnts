@@ -35,6 +35,14 @@
                 <model>PmntsVaultProvider</model>
                 <title>My Saved Cards</title>
             </pmnts_gateway_vault>
+            <pmnts_googlepay>
+                <model>PmntsGooglePay</model>
+                <title>Google Pay</title>
+            </pmnts_googlepay>
+            <pmnts_applepay>
+                <model>PmntsApplePay</model>
+                <title>Apple Pay</title>
+            </pmnts_applepay>
         </payment>
     </default>
 </config>

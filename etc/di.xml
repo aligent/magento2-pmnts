@@ -116,4 +116,11 @@
             <argument name="logger" xsi:type="object">PmntsGatewayLogger</argument>
         </arguments>
     </type>
+
+    <virtualType name="PmntsGooglePay" type="Magento\Payment\Model\Method\Adapter">
+    </virtualType>
+
+    <virtualType name="PmntsApplePay" type="Magento\Payment\Model\Method\Adapter">
+    </virtualType>
+
 </config>
